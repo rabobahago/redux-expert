@@ -1,7 +1,7 @@
+import { UPDATE_PERSON } from '../actions/personActions'
 const personReducer = (state = { name: 'rabo' }, { type, payload }) => {
-  //console.log(actions)
   switch (type) {
-    case 'UPDATE_PERSON':
+    case UPDATE_PERSON:
       return {
         ...state,
         name: payload,
