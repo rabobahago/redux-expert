@@ -1,11 +1,10 @@
 import './App.css'
-import store from './store/index'
 import update_person from './store/actions/personActions'
 import update_game from './store/actions/gameActions'
 import update_day from './store/actions/dayInWeek'
+import fetch_user from './store/actions/usersFetch'
 import { connect } from 'react-redux'
 const App = (props) => {
-  console.log(props)
   return (
     <div className="App">
       <h2>Redux expect</h2>
@@ -17,26 +16,40 @@ const App = (props) => {
       <br />
       Day in a Week: {props.week.day}
       <button onClick={props.updateWeek}>update day</button>
+      <br />
+      Users:{' '}
+      {props.users.length === 0 ? (
+        <p>No User Found</p>
+      ) : (
+        props.users.map((user) => <p>{user.id}</p>)
+      )}
+      {console.log(props.users)}
+      <button onClick={props.updateUser}>update user</button>
     </div>
   )
 }
+
 const mapStateToProps = (state) => {
   return {
     person: state.person,
     skill: state.skill,
     week: state.week,
+    users: state.users,
   }
 }
-const mapDispatchToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     updatePerson: () => {
-      store.dispatch(update_person())
+      dispatch(update_person())
     },
     updateSkill: () => {
-      store.dispatch(update_game())
+      dispatch(update_game())
     },
     updateWeek: () => {
-      store.dispatch(update_day())
+      dispatch(update_day())
+    },
+    updateUser: () => {
+      dispatch(fetch_user)
     },
   }
 }
